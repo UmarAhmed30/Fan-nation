@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Fan-nation</title>
+        <link rel="icon" href="../../static/MovieBase/favicon.ico">
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="../../static/bootstrap-4.4.1-dist/css/bootstrap.css">
+        <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="../../static/MovieBase/pro1.css">
+        <script src="https://kit.fontawesome.com/6f931c8600.js" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.5.0.js" integrity="sha256-r/AaFHrszJtwpe+tHyNi/XCfMxYpbsRg2Uqn0x3s2zc=" crossorigin="anonymous"></script>
+    </head>
+
+    <body>
+
+        <div class="header">
+            <h2 class="logo"><i class="fas fa-film"></i>&nbsp;Fan-nation</h2>
+        </div>
+
+        <div class="container" id="container">
+            <div class="form-container sign-up-container">
+                <!-- Sign Up form -->
+                    <div class="form-class">
+                        <h1 class="form-heading1">Sign Up</h1>
+                        <input type="email" class="f_email_id" placeholder="Enter your email-ID" required>
+                        <input type="text" class="f_name1" placeholder="Enter your username" required>
+                        <input type="password" class="f_password1" placeholder="Set your password" required>
+                        <button class="sign-up-btn">Sign Up</button>
+                    </div>
+            </div>
+
+            <div class="form-container sign-in-container">
+                <!-- Sign In form -->
+                <div class="form-class">
+                        <h1 class="form-heading2">Sign In</h1>
+                        <input type="text" class="f_name2" placeholder="Enter your username" required>
+                        <input type="password" class="f_password2" placeholder="Enter your password" required>
+                        <div class="validation-output"></div>
+                        <button class="sign-in-btn">Sign In</button>
+                    </div>
+            </div>
+
+            <div class="overlay-container">
+                <!-- Overlay -->
+                <div class="overlay">
+
+                    <div class="overlay-panel overlay-left">
+                        <h1>Welcome Back!</h1>
+                        <p>
+                            To stay connected with us please login!
+                        </p>
+                        <button class="ghost" id="signIn">Sign In</button>
+                    </div>
+
+                    <div class="overlay-panel overlay-right">
+                        <h1>Hello Fanby!</h1>
+                        <p>Browse through your favourite movies with us!</p>
+                        <button class="ghost" id="signUp">Sign Up</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Footer Section Starts-->
+
+        <section id="footer">
+            <a href="https://www.facebook.com/"><i class="fab fa-facebook social-icon"></i></a>
+            <a href="https://www.instagram.com/"><i class="fab fa-instagram social-icon"></i></a>
+            <a href="https://twitter.com/login"><i class="fab fa-twitter social-icon"></i></a>
+            <a href="https://www.google.com/intl/en_in/gmail/about/"><i class="fas fa-envelope social-icon"></i></a>
+            <a href="https://contacts.google.com/"><i class="fas fa-phone social-icon"></i></a>
+            <br>
+            <span style="font-family:'Montserrat', sans-serif; font-weight: bold;">&copy; Copyright 2020 Fan-nation</span>
+        </section>
+
+        <!--Footer Section Ends-->	
+
+        <script>
+            $("#signUp").click(function(){
+                $(".container").addClass("right-panel-active")
+            });
+
+            $("#signIn").click(function(){
+                $(".container").removeClass("right-panel-active")
+            });
+
+            $(".sign-up-btn").click(function(){
+                var a = $(".f_email_id").val();
+                var b = $(".f_name1").val();
+                var c = $(".f_password1").val();
+
+                var json_obj = {"email":a,"name":b,"password":c};
+                var str = JSON.stringify(json_obj);
+                console.log(json_obj);
+                console.log(str);
+
+                $.ajax({
+                    url:"http://127.0.0.1:5000/fan-sign-up",
+                    method:"post",
+                    data:str,
+                    dataType:'json',
+                    success : function(){
+                        alert("Welcome to the club mate! Sign-in and explore a lot of movies with us!");
+                    },
+                    error : function(){
+                        alert("Email-ID or Usernmae already exists!");
+                    }
+                });
+            });
+
+            $(".sign-in-btn").click(function(){
+                var a = $(".f_name2").val();
+                var b = $(".f_password2").val()
+
+                var json_obj = {"name":a,"password":b};
+                var str = JSON.stringify(json_obj);
+                console.log(json_obj);
+                console.log(str);
+
+                $.ajax({
+                    url:"http://127.0.0.1:5000/fan-sign-in",
+                    method:"post",
+                    data:str,
+                    dataType:'json',
+                    success : function(reTurn){
+
+                        if(reTurn.w === 0){
+                            window.location.href = "http://127.0.0.1:5000/to_fanpage";
+                        }
+
+                        if(reTurn.w === 1){
+                            $(".validation-output").html("<span>Incorrect Password</span>");
+                        }
+                        
+                        if(reTurn.w === 2){
+                            $(".validation-output").html("<span>Incorrect Username</span>");
+                        }
+                    },
+                    error : function(){
+                        alert("Unexpected error!")
+                    }
+                })
+            });
+        </script>
+
+    </body>
+</html>

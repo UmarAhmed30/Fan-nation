@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Fan-nation</title>
+        <link rel="icon" href="../../static/MovieBase/favicon.ico">
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="../../static/bootstrap-4.4.1-dist/css/bootstrap.css">
+        <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="../../static/MovieBase/pro3.css">
+        <script src="https://kit.fontawesome.com/6f931c8600.js" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.5.0.js" integrity="sha256-r/AaFHrszJtwpe+tHyNi/XCfMxYpbsRg2Uqn0x3s2zc=" crossorigin="anonymous"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    </head>
+
+    <style>
+        img{
+            padding: 40px;
+            margin-top: 10px;
+        }
+
+        .well{
+            height: 300px;
+        }
+
+        .list-item{
+            background-color: #323232;
+            color: white;
+            font-size: 20px;
+            padding: 7.5px;
+        }
+
+        .list{
+            position: absolute;
+            top: 22.5%;
+            list-style-type: none;
+        }
+
+        .title{
+            font-family: 'Montserrat', sans-serif;
+            font-size: 40px;
+            color: #ffd31d;
+            font-weight: bolder;
+            position: absolute;
+            top: 10%;
+            left: 8.5%;
+        }
+
+        .plot-row{
+            margin: 20px;
+            margin-left: 40px;
+        }
+
+        .plot-title{
+            color: #ffd31d;
+            font-size: 25px;
+            font-weight: bolder;
+            margin-bottom: 30px;
+        }
+
+        .plot{
+            color: white;
+            font-size: 20px;
+            margin-bottom: 30px;
+        }
+
+        .btn-primary1{
+            background-color: #ffd31d;
+            border-color: #ffd31d;
+            color: black;
+        }
+
+        .btn-primary2{
+            background-color: #ffd31d;
+            border-color: #ffd31d;
+            color: black;
+            margin-left: 20px;
+        }
+
+        .btn-primary1:hover{
+            background-color: #f2a51a;
+        }
+
+        .btn-primary2:hover{
+            background-color: #f2a51a;
+        }
+    </style>
+
+    <body>
+
+        <div class="header">
+            <h2 class="logo"><i class="fas fa-film"></i>&nbsp;Fan-nation</h2>
+        </div>
+
+        <div class="container">
+            <div id="movie"></div>
+        </div>
+
+
+        <script>
+            getMovie();
+
+
+            function getMovie(){
+                var movieID = sessionStorage.getItem('movie_id');
+                axios.get('http://www.omdbapi.com/?apikey=3f36cd84&i='+movieID)
+                .then((response) => {
+                    console.log(response);
+                    var movie = response.data;
+                    var output = "<div class='row'>"+
+                                    "<div class='col-md-4'>"+
+                                        "<img src='"+ movie.Poster +"' class='thumbnail'>"+
+                                    "</div>"+
+                                    "<div class='col-md-8'>"+
+                                        "<h2 class='title'>"+ movie.Title +"</h2>"+
+                                        "<ul class='list'>"+
+                                            "<li class='list-item'><strong>Genre : </strong>"+ movie.Genre +"</li>"+
+                                            "<li class='list-item'><strong>Released : </strong>"+ movie.Released +"</li>"+
+                                            "<li class='list-item'><strong>Rated : </strong>"+ movie.Rated +"</li>"+
+                                            "<li class='list-item'><strong>IMDB Rating : </strong>"+ movie.imdbRating +"</li>"+
+                                            "<li class='list-item'><strong>Director : </strong>"+ movie.Director +"</li>"+
+                                            "<li class='list-item'><strong>Writer : </strong>"+ movie.Writer +"</li>"+
+                                            "<li class='list-item'><strong>Actors : </strong>"+ movie.Actors +"</li>"+
+                                        "</ul>"+
+                                    "</div>"+
+                                    "</div>"+
+                                    "<hr>"+
+                                    "<div class='row plot-row'>"+
+                                        "<div class='well'>"+
+                                            "<h3 class='plot-title'>Plot :</h3>"+
+                                            "<p class='plot'>"+ movie.Plot +"</p>"+
+                                            "<a href='http://imdb.com/title/"+ movie.imdbID +"' target='_blank' class='btn btn-primary1'>View IMDB</a>"+
+                                            "<a href='http://127.0.0.1:5000/to_fanpage' class='btn btn-primary2'>Go Back To Search</a>"+
+                                        "</div>"+
+                                    "</div>";
+
+                    $("#movie").html(output);
+                })
+
+                .catch((err) => {
+                    console.log(err);
+                });
+            }
+        </script>
+
+    </body>
+</html>
