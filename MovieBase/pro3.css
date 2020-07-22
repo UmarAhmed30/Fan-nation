@@ -1,0 +1,38 @@
+body{
+    margin-top: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+    padding: 0px;
+    background-image: url('./Images/img2_b&w.jpg');
+    background-size: cover;
+    font-family: 'Bangers', cursive;
+}
+
+.header{
+    text-align: center;
+    width: 100%;
+    background-color:#ffd31d;
+    margin-top: 10px;
+    margin-bottom: 30px;
+    height: 90px;
+}
+
+.logo{
+    font-size: 80px;
+    width: auto;
+    height: auto;
+}
+
+.container{
+    margin: 0 auto;
+    width: 1300px;
+    height: 900px;
+    margin-top: 55px;
+    margin-bottom: 45px;
+    background-color: #323232;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.col-md-8{
+    background-color: #323232;
+}

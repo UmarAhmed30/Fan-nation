@@ -1,0 +1,78 @@
+body{
+    margin-top: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+    padding: 0px;
+    background-image: url('./Images/img2_b&w.jpg');
+    background-size: cover;
+    font-family: 'Bangers', cursive;
+}
+
+.container-fluid{
+    background-color: #ffd31d;
+    height: 90px;
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+
+.row{
+    height: 90px;
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+
+label{
+    padding-top: 3.5%;
+    font-size: 25px;
+}
+
+input{
+    font-size: 25px;
+}
+
+button {
+    border-radius: 20px;
+    border: 1px solid black;
+    background-color: black;
+    color: #ffffff;
+    font-size: 25px;
+    font-weight: bold;
+    padding: 5px 40px;
+    letter-spacing: 1px;
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+button:focus {
+    outline: none;
+}
+
+button:hover{
+    color: #868585;
+}
+
+.logo{
+    font-size: 50px;
+    padding-top: 2.25%;
+    float: right;
+}
+
+.container{
+    margin: 0 auto;
+    width: 1300px;
+    height: 550px;
+    margin-top: 55px;
+    margin-bottom: 45px;
+    overflow: auto;
+    background-color: #323232;
+}
+
+.content{
+    font-size: 80px;
+    position: absolute;
+    top: 50%;
+    left: 22.5%;
+    color: white;
+}
